@@ -1,0 +1,42 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      FLASK_ENV: development
+      MONGO_URI: mongodb://mongo:27017/testdb
+
+  mongo:
+    image: mongo:4.4
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  app-staging:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8000"
+    volumes:
+      - .:/app
+    environment:
+      FLASK_ENV: staging
+      MONGO_URI: mongodb://mongo-staging:27017/stagingdb
+
+  mongo-staging:
+    image: mongo:4.4
+    ports:
+      - "27019:27017"
+    volumes:
+      - mongo-staging-data:/data/db
+
+volumes:
+  mongo-data:
+  mongo-staging-data:
