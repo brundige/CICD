@@ -34,7 +34,7 @@ jobs:
       - name: Wait for MongoDB
         run: |
           for i in {1..30}; do
-            nc -z mongo 27017 && echo "MongoDB is up!" && break
+            nc -z localhost 27017 && echo "MongoDB is up!" && break
             echo "Waiting for MongoDB..."
             sleep 1
           done
@@ -42,7 +42,7 @@ jobs:
       - name: Run tests
         env:
           FLASK_ENV: test
-          MONGO_URI: mongodb://mongo:27017/testdb
+          MONGO_URI: mongodb://localhost:27017/testdb
         run: |
           pytest
 
