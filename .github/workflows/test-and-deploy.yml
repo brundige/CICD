@@ -3,7 +3,7 @@ name: Test and Deploy to Staging
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   test:
